@@ -17,7 +17,8 @@ public/images/       Service photography (Unsplash licence)
 - All Firestore access happens **on the server** via the Firebase Admin SDK, so `firestore.rules` denies all direct client access.
 - Until Firestore is configured, the site shows built-in default content from `lib/defaults.ts`.
 - After connecting Firestore, sign in to `/admin` and click **Import default content** to copy the services and company details into the database, then edit them there.
-- Collections: `services`, `settings/company`, `testimonials`, `enquiries`.
+- Collections: `services`, `industries` (sectors we serve, e.g. Government works), `settings/company`, `testimonials`, `enquiries`.
+- `npm run seed` imports the default content from the command line (never overwrites existing data).
 
 ## Local development
 
@@ -25,6 +26,15 @@ public/images/       Service photography (Unsplash licence)
 npm install
 cp .env.example .env.local   # then fill in values
 npm run dev
+```
+
+## Tests
+
+```bash
+npm run typecheck    # TypeScript
+npm test             # unit tests (helpers + default content)
+npm run test:smoke   # starts the production build, checks every route and admin access control
+npm run test:all     # all of the above, including a production build
 ```
 
 ## Firebase setup

@@ -37,13 +37,13 @@ export default async function ContactPage({
         crumbs={[{ href: "/", label: "Home" }, { label: "Contact" }]}
       />
 
-      <section className="container-x grid gap-10 py-20 lg:grid-cols-[1fr_1.5fr]">
-        <div className="space-y-4">
+      <section className="container-x grid gap-10 py-14 sm:py-20 lg:grid-cols-[1fr_1.5fr]">
+        <div data-reveal="left" className="space-y-4">
           {cards.map((c) => (
             <a
               key={c.value}
               href={c.href}
-              className="flex items-center gap-4 rounded-2xl border border-line bg-white p-5 transition hover:border-brand-200 hover:shadow-md"
+              className="flex items-center gap-4 rounded-2xl border border-line bg-white p-5 transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
             >
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-brand-50 text-brand-600">
                 <Icon name={c.icon} />
@@ -77,7 +77,7 @@ export default async function ContactPage({
           )}
         </div>
 
-        <div className="rounded-3xl border border-line bg-white p-7 shadow-[0_30px_60px_-40px_rgba(10,28,69,0.45)] md:p-10">
+        <div data-reveal="right" className="rounded-3xl border border-line bg-white p-5 shadow-[0_30px_60px_-40px_rgba(10,28,69,0.45)] sm:p-7 md:p-10">
           <h2 className="font-display text-2xl font-bold text-ink-950">Send us an enquiry</h2>
           <p className="mt-2 text-ink-500">Fields marked * are required.</p>
           <div className="mt-8">
@@ -90,11 +90,11 @@ export default async function ContactPage({
       </section>
 
       <section className="container-x pb-24">
-        <div className="overflow-hidden rounded-3xl border border-line">
+        <div data-reveal className="overflow-hidden rounded-3xl border border-line">
           <iframe
             title="Techsolv location map"
             src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
-            className="h-[380px] w-full"
+            className="h-[300px] w-full sm:h-[380px]"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />

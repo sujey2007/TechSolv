@@ -10,6 +10,7 @@ const items: { href: string; label: string; icon: IconKey }[] = [
   { href: "/admin", label: "Dashboard", icon: "grid" },
   { href: "/admin/enquiries", label: "Enquiries", icon: "inbox" },
   { href: "/admin/services", label: "Services", icon: "tools" },
+  { href: "/admin/industries", label: "Sectors we serve", icon: "landmark" },
   { href: "/admin/testimonials", label: "Testimonials", icon: "quote" },
   { href: "/admin/settings", label: "Company settings", icon: "sliders" },
 ];

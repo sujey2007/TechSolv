@@ -29,6 +29,15 @@ export function SettingsForm({ settings }: { settings: CompanySettings }) {
         </div>
       </Card>
 
+      <Card className="grid gap-5 p-6">
+        <h2 className="font-display font-bold text-ink-950">Home page — sectors section</h2>
+        {field("industriesTitle", "Section heading", "e.g. Trusted across every kind of premises")}
+        <div>
+          <label className="label" htmlFor="industriesIntro">Section intro</label>
+          <textarea id="industriesIntro" name="industriesIntro" rows={3} defaultValue={settings.industriesIntro} className="input" />
+        </div>
+      </Card>
+
       <Card className="grid gap-5 p-6 sm:grid-cols-2">
         <h2 className="font-display font-bold text-ink-950 sm:col-span-2">Contact details</h2>
         {field("primaryPhone", "Primary phone")}

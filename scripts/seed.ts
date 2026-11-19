@@ -6,7 +6,7 @@
  */
 import { cert, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
-import { defaultServices, defaultSettings } from "../lib/defaults.ts";
+import { defaultIndustries, defaultServices, defaultSettings } from "../lib/defaults.ts";
 
 const { FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY } = process.env;
 if (!FIREBASE_PROJECT_ID || !FIREBASE_CLIENT_EMAIL || !FIREBASE_PRIVATE_KEY) {
@@ -33,6 +33,14 @@ for (const s of defaultServices) {
     batch.set(ref, s);
     created++;
     console.log("  + services/" + s.slug);
+  }
+}
+
+if ((await db.collection("industries").limit(1).get()).empty) {
+  for (const ind of defaultIndustries) {
+    batch.set(db.collection("industries").doc(), ind);
+    created++;
+    console.log("  + industries/" + ind.label);
   }
 }
 

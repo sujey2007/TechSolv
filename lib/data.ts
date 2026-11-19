@@ -1,6 +1,6 @@
 import { getDb } from "./firebase-admin";
-import { defaultServices, defaultSettings } from "./defaults";
-import type { CompanySettings, Enquiry, Service, Testimonial } from "./types";
+import { defaultIndustries, defaultServices, defaultSettings } from "./defaults";
+import type { CompanySettings, Enquiry, Industry, Service, Testimonial } from "./types";
 
 const defaultsWithIds = (): Service[] => defaultServices.map((s) => ({ ...s, id: s.slug }));
 
@@ -65,4 +65,23 @@ export async function hasStoredServices() {
   const db = getDb();
   if (!db) return false;
   return safe(async () => !(await db.collection("services").limit(1).get()).empty, false);
+}
+
+const industryDefaults = (): Industry[] => defaultIndustries.map((d, i) => ({ ...d, id: `default-${i}` }));
+
+/** Industries / sectors served. Falls back to defaults when Firestore is empty or not configured. */
+export async function getIndustries(): Promise<Industry[]> {
+  const db = getDb();
+  if (!db) return industryDefaults();
+  return safe(async () => {
+    const snap = await db.collection("industries").orderBy("order").get();
+    if (snap.empty) return industryDefaults();
+    return snap.docs.map((d) => ({ ...(d.data() as Omit<Industry, "id">), id: d.id }));
+  }, industryDefaults());
+}
+
+export async function hasStoredIndustries() {
+  const db = getDb();
+  if (!db) return false;
+  return safe(async () => !(await db.collection("industries").limit(1).get()).empty, false);
 }

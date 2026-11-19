@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "seed": "node --experimental-strip-types --env-file=.env.local scripts/seed.ts"
+    "seed": "node --experimental-strip-types --env-file=.env.local scripts/seed.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --no-warnings --test tests/unit.test.ts",
+    "test:smoke": "node --env-file-if-exists=.env.local tests/smoke.mjs",
+    "test:all": "npm run typecheck && npm test && npm run build && npm run test:smoke"
   },
   "dependencies": {
     "firebase-admin": "^14.5.1",

@@ -37,7 +37,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={service.image} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35" />
         <div className="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/85 to-ink-950/30" />
-        <div className="container-x relative py-20 md:py-28">
+        <div className="container-x relative py-16 md:py-28">
           <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/60">
             <Link href="/" className="hover:text-white">Home</Link>
             <span>/</span>
@@ -45,26 +45,26 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             <span>/</span>
             <span className="text-white">{service.title}</span>
           </nav>
-          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-white/10 text-signal-400 ring-1 ring-white/20 backdrop-blur">
+          <span className="float grid h-14 w-14 place-items-center rounded-2xl bg-white/10 text-signal-400 ring-1 ring-white/20 backdrop-blur">
             <Icon name={service.icon} className="h-7 w-7" />
           </span>
           <p className="mt-6 text-xs font-semibold uppercase tracking-[0.14em] text-signal-400">{service.tagline}</p>
-          <h1 className="mt-3 max-w-3xl font-display text-4xl font-extrabold leading-[1.1] tracking-tight md:text-5xl">
+          <h1 className="rise mt-3 max-w-3xl text-balance font-display text-[2.1rem] font-extrabold [animation-delay:80ms] sm:text-4xl leading-[1.1] tracking-tight md:text-5xl">
             {service.title}
           </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/75">{service.summary}</p>
+          <p className="rise mt-5 max-w-2xl text-lg leading-relaxed text-white/75 [animation-delay:160ms]">{service.summary}</p>
         </div>
       </section>
 
-      <section className="container-x grid gap-14 py-20 lg:grid-cols-[1.6fr_1fr]">
-        <div>
+      <section className="container-x grid gap-14 py-16 sm:py-20 lg:grid-cols-[1.6fr_1fr]">
+        <div data-reveal>
           <span className="eyebrow">Overview</span>
           <p className="mt-5 text-lg leading-relaxed text-ink-700">{service.description}</p>
 
           <h2 className="mt-14 font-display text-2xl font-bold text-ink-950">What&apos;s included</h2>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2">
             {service.features.map((f) => (
-              <li key={f} className="flex gap-3 rounded-2xl border border-line bg-paper p-5 text-[15px] text-ink-800">
+              <li key={f} className="flex gap-3 rounded-2xl border border-line bg-paper p-5 text-[15px] text-ink-800 transition duration-300 hover:-translate-y-0.5 hover:border-brand-200 hover:bg-white hover:shadow-md">
                 <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-600 text-white">
                   <Icon name="check" className="h-3.5 w-3.5" strokeWidth={2.8} />
                 </span>
@@ -89,7 +89,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           </div>
         </div>
 
-        <aside className="lg:sticky lg:top-32 lg:self-start">
+        <aside data-reveal="right" className="lg:sticky lg:top-28 lg:self-start">
           <div className="rounded-3xl border border-line bg-white p-7 shadow-[0_30px_60px_-40px_rgba(10,28,69,0.5)]">
             <h3 className="font-display text-xl font-bold text-ink-950">Get a quote for {shortTitle(service.title)}</h3>
             <p className="mt-2 text-sm text-ink-500">

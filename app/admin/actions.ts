@@ -3,10 +3,10 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { checkCredentials, createSession, destroySession, requireAdmin } from "@/lib/auth";
-import { defaultServices, defaultSettings } from "@/lib/defaults";
+import { defaultIndustries, defaultServices, defaultSettings } from "@/lib/defaults";
 import { getDb } from "@/lib/firebase-admin";
 import { slugify } from "@/lib/format";
-import type { CompanySettings, EnquiryStatus, IconName } from "@/lib/types";
+import type { CompanySettings, EnquiryStatus, IconName, IndustryIcon } from "@/lib/types";
 
 export type FormState = { ok: boolean; message: string } | null;
 
@@ -108,6 +108,9 @@ export async function seedDefaults() {
   if (existing.empty) {
     for (const s of defaultServices) batch.set(db.collection("services").doc(s.slug), s);
   }
+  if ((await db.collection("industries").limit(1).get()).empty) {
+    for (const ind of defaultIndustries) batch.set(db.collection("industries").doc(), ind);
+  }
   const settingsRef = db.collection("settings").doc("company");
   if (!(await settingsRef.get()).exists) batch.set(settingsRef, defaultSettings);
   await batch.commit();
@@ -175,6 +178,8 @@ export async function saveSettings(_prev: FormState, fd: FormData): Promise<Form
       hours: str(fd, "hours", 120),
       whatsapp: str(fd, "whatsapp", 20).replace(/\D/g, ""),
       about: str(fd, "about", 3000),
+      industriesTitle: str(fd, "industriesTitle", 160) || defaultSettings.industriesTitle,
+      industriesIntro: str(fd, "industriesIntro", 600),
     };
     await requireDb().collection("settings").doc("company").set(data);
   } catch (e) {
@@ -182,4 +187,47 @@ export async function saveSettings(_prev: FormState, fd: FormData): Promise<Form
   }
   refreshSite();
   return { ok: true, message: "Settings saved. The website has been updated." };
+}
+
+/* ---------------- Industries ---------------- */
+
+const INDUSTRY_ICONS: IndustryIcon[] = ["building", "school", "hospital", "store", "warehouse", "home", "landmark", "bed"];
+
+function industryData(fd: FormData) {
+  const icon = str(fd, "icon", 20) as IndustryIcon;
+  return {
+    label: str(fd, "label", 80),
+    description: str(fd, "description", 160),
+    icon: INDUSTRY_ICONS.includes(icon) ? icon : "building",
+    order: Number(str(fd, "order", 6)) || 0,
+  };
+}
+
+export async function addIndustry(_prev: FormState, fd: FormData): Promise<FormState> {
+  await requireAdmin();
+  try {
+    const data = industryData(fd);
+    if (!data.label) return { ok: false, message: "Name is required." };
+    await requireDb().collection("industries").add(data);
+  } catch (e) {
+    return { ok: false, message: (e as Error).message };
+  }
+  refreshSite();
+  return { ok: true, message: "Sector added." };
+}
+
+export async function updateIndustry(fd: FormData) {
+  await requireAdmin();
+  const id = str(fd, "id", 100);
+  const data = industryData(fd);
+  if (!id || !data.label) return;
+  await requireDb().collection("industries").doc(id).set(data);
+  refreshSite();
+}
+
+export async function deleteIndustry(fd: FormData) {
+  await requireAdmin();
+  const id = str(fd, "id", 100);
+  if (id) await requireDb().collection("industries").doc(id).delete();
+  refreshSite();
 }

@@ -9,8 +9,8 @@ export function Footer({ settings, services }: { settings: CompanySettings; serv
   return (
     <footer className="relative overflow-hidden bg-ink-950 text-white/70">
       <div className="pointer-events-none absolute -top-40 right-[-10%] h-[420px] w-[420px] rounded-full bg-brand-600/25 blur-[120px]" />
-      <div className="container-x relative grid gap-12 py-16 md:grid-cols-12">
-        <div className="md:col-span-4">
+      <div className="container-x relative grid gap-10 py-14 sm:grid-cols-2 sm:py-16 lg:grid-cols-12 lg:gap-12">
+        <div className="sm:col-span-2 lg:col-span-4">
           <Logo light />
           <p className="mt-5 max-w-sm text-sm leading-relaxed">{settings.tagline}.</p>
           <p className="mt-6 text-sm">
@@ -19,14 +19,14 @@ export function Footer({ settings, services }: { settings: CompanySettings; serv
           </p>
         </div>
 
-        <div className="md:col-span-4">
+        <div className="lg:col-span-4">
           <h3 className="font-display text-sm font-semibold uppercase tracking-[0.14em] text-white">
             Services
           </h3>
           <ul className="mt-5 space-y-3 text-sm">
             {services.map((s) => (
               <li key={s.id}>
-                <Link href={`/services/${s.slug}`} className="transition hover:text-white">
+                <Link href={`/services/${s.slug}`} className="inline-block transition hover:translate-x-1 hover:text-white">
                   {s.title}
                 </Link>
               </li>
@@ -34,7 +34,7 @@ export function Footer({ settings, services }: { settings: CompanySettings; serv
           </ul>
         </div>
 
-        <div className="md:col-span-4">
+        <div className="lg:col-span-4">
           <h3 className="font-display text-sm font-semibold uppercase tracking-[0.14em] text-white">
             Reach us
           </h3>
@@ -71,7 +71,7 @@ export function Footer({ settings, services }: { settings: CompanySettings; serv
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-x flex flex-col items-center justify-between gap-3 py-6 text-xs text-white/45 sm:flex-row">
+        <div className="container-x flex flex-col items-center justify-between gap-3 pb-24 pt-6 text-center text-xs text-white/45 sm:flex-row sm:pb-6 sm:pr-52 sm:text-left">
           <span>
             © {year} {settings.name}. All rights reserved.
           </span>

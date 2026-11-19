@@ -32,6 +32,26 @@ export interface CompanySettings {
   hours: string;
   whatsapp: string;
   about: string;
+  industriesTitle: string;
+  industriesIntro: string;
+}
+
+export type IndustryIcon =
+  | "building"
+  | "school"
+  | "hospital"
+  | "store"
+  | "warehouse"
+  | "home"
+  | "landmark"
+  | "bed";
+
+export interface Industry {
+  id: string;
+  label: string;
+  description: string;
+  icon: IndustryIcon;
+  order: number;
 }
 
 export interface Testimonial {

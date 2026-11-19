@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Card, DbWarning, Notice, PageHeader, StatusPill, btn } from "@/components/admin/ui";
 import { Icon, type IconKey } from "@/components/Icon";
 import { requireAdmin } from "@/lib/auth";
-import { getAllServices, getEnquiries, getTestimonials, hasStoredServices } from "@/lib/data";
+import { getAllServices, getEnquiries, getTestimonials, hasStoredIndustries, hasStoredServices } from "@/lib/data";
 import { isFirestoreConfigured } from "@/lib/firebase-admin";
 import { formatDate } from "@/lib/format";
 import { seedDefaults } from "../actions";
@@ -11,13 +11,15 @@ export const metadata = { title: "Dashboard" };
 
 export default async function Dashboard({ searchParams }: { searchParams: Promise<{ seeded?: string }> }) {
   const session = await requireAdmin();
-  const [{ seeded }, enquiries, services, testimonials, stored] = await Promise.all([
+  const [{ seeded }, enquiries, services, testimonials, storedServices, storedIndustries] = await Promise.all([
     searchParams,
     getEnquiries(),
     getAllServices(),
     getTestimonials(),
     hasStoredServices(),
+    hasStoredIndustries(),
   ]);
+  const stored = storedServices && storedIndustries;
   const configured = isFirestoreConfigured();
   const newOnes = enquiries.filter((e) => e.status === "new").length;
 
@@ -38,9 +40,9 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
       {configured && !stored && (
         <Card className="flex flex-col items-start justify-between gap-4 p-5 sm:flex-row sm:items-center">
           <div>
-            <p className="font-semibold text-ink-950">Your Firestore database is empty</p>
+            <p className="font-semibold text-ink-950">Some default content is not in Firestore yet</p>
             <p className="text-sm text-ink-500">
-              Import the six default services and company details so you can start editing them.
+              Import the default services, sectors (incl. Government works) and company details so you can edit them.
             </p>
           </div>
           <form action={seedDefaults}>

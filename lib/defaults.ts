@@ -1,4 +1,4 @@
-import type { CompanySettings, Service } from "./types";
+import type { CompanySettings, Industry, Service } from "./types";
 
 export const defaultSettings: CompanySettings = {
   name: "Techsolv",
@@ -13,7 +13,21 @@ export const defaultSettings: CompanySettings = {
   whatsapp: "919094499449",
   about:
     "Techsolv designs, installs and maintains the systems that keep a workplace connected and secure — structured cabling and fibre networks, CCTV surveillance, biometric access, alarms, vehicle tracking and EPABX telephony. We work with offices, schools, hospitals, retail stores, warehouses and residential communities across Chennai, and we stay with our clients long after installation through annual maintenance contracts.",
+  industriesTitle: "Trusted across every kind of premises",
+  industriesIntro:
+    "Every site is different. We size and configure each solution for the way your space is used, the people in it and what needs protecting.",
 };
+
+export const defaultIndustries: Omit<Industry, "id">[] = [
+  { label: "Government works", description: "Departments, public offices & tender projects", icon: "landmark", order: 1 },
+  { label: "Corporate offices", description: "IT parks, co-working & business centres", icon: "building", order: 2 },
+  { label: "Schools & colleges", description: "Campuses, labs, hostels & classrooms", icon: "school", order: 3 },
+  { label: "Hospitals & clinics", description: "Wards, pharmacies & diagnostic centres", icon: "hospital", order: 4 },
+  { label: "Retail & showrooms", description: "Shops, jewellers & supermarkets", icon: "store", order: 5 },
+  { label: "Warehouses & factories", description: "Plants, godowns & logistics yards", icon: "warehouse", order: 6 },
+  { label: "Hotels & hospitality", description: "Hotels, restaurants & banquet halls", icon: "bed", order: 7 },
+  { label: "Apartments & villas", description: "Gated communities & independent homes", icon: "home", order: 8 },
+];
 
 export const defaultServices: Omit<Service, "id">[] = [
   {
