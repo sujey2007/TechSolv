@@ -51,7 +51,7 @@ export function Header({
 
   return (
     <header className="sticky top-0 z-50">
-      <div className="hidden bg-ink-950 text-[13px] text-white/75 md:block">
+      <div className="hidden border-b border-white/10 bg-ink-950 text-[13px] text-white/75 md:block">
         <div className="container-x flex h-9 items-center justify-between">
           <span className="flex items-center gap-2">
             <Icon name="clock" className="h-3.5 w-3.5 text-signal-400" />
@@ -71,15 +71,15 @@ export function Header({
       </div>
 
       <div
-        className={`border-b transition-all duration-300 ${
-          scrolled
-            ? "border-line bg-white/85 shadow-[0_8px_30px_-14px_rgba(10,28,69,0.25)] backdrop-blur-xl"
-            : "border-transparent bg-white"
+        className={`relative bg-gradient-to-r from-ink-950 via-ink-800 to-brand-700 text-white transition-shadow duration-300 ${
+          scrolled ? "shadow-[0_12px_34px_-12px_rgba(6,18,48,0.65)]" : ""
         }`}
       >
-        <div className={`container-x flex items-center justify-between transition-all duration-300 ${scrolled ? "h-16" : "h-[76px]"}`}>
+        <div className="grid-bg pointer-events-none absolute inset-0 opacity-25 [mask-image:linear-gradient(to_left,black,transparent_70%)]" />
+        <div className="nav-glow pointer-events-none absolute inset-x-0 bottom-0 h-[2px]" />
+        <div className={`container-x relative flex items-center justify-between transition-all duration-300 ${scrolled ? "h-16" : "h-[76px]"}`}>
           <Link href="/" aria-label="Techsolv home" className="transition hover:opacity-90">
-            <Logo />
+            <Logo light />
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
@@ -89,7 +89,7 @@ export function Header({
                   <Link
                     href={item.href}
                     className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-[15px] font-medium transition ${
-                      isActive(item.href) ? "bg-brand-50 text-brand-700" : "text-ink-700 hover:bg-paper hover:text-ink-950"
+                      isActive(item.href) ? "bg-white/15 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)]" : "text-white/80 hover:bg-white/10 hover:text-white"
                     }`}
                   >
                     <Icon name={item.icon} className="h-[18px] w-[18px]" />
@@ -121,7 +121,7 @@ export function Header({
                   key={item.href}
                   href={item.href}
                   className={`flex items-center gap-2 rounded-xl px-4 py-2.5 text-[15px] font-medium transition ${
-                    isActive(item.href) ? "bg-brand-50 text-brand-700" : "text-ink-700 hover:bg-paper hover:text-ink-950"
+                    isActive(item.href) ? "bg-white/15 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.18)]" : "text-white/80 hover:bg-white/10 hover:text-white"
                   }`}
                 >
                   <Icon name={item.icon} className="h-[18px] w-[18px]" />
@@ -134,14 +134,14 @@ export function Header({
           <div className="hidden items-center gap-3 lg:flex">
             <a
               href={phoneHref}
-              className="grid h-11 w-11 place-items-center rounded-xl border border-line text-ink-800 transition hover:border-brand-200 hover:text-brand-600"
+              className="grid h-11 w-11 place-items-center rounded-xl border border-white/20 text-white transition hover:bg-white/10"
               aria-label={`Call ${phone}`}
             >
               <Icon name="phone" className="h-[18px] w-[18px]" />
             </a>
             <Link
               href="/contact"
-              className="group inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-10px_rgba(31,74,214,0.8)] transition hover:-translate-y-0.5 hover:bg-brand-700"
+              className="group inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-ink-950 shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition hover:-translate-y-0.5 hover:bg-signal-50"
             >
               Get a free quote
               <Icon name="arrow" className="h-4 w-4 transition group-hover:translate-x-0.5" />
@@ -151,14 +151,14 @@ export function Header({
           <div className="flex items-center gap-2 lg:hidden">
             <a
               href={phoneHref}
-              className="grid h-11 w-11 place-items-center rounded-xl border border-line text-ink-800"
+              className="grid h-11 w-11 place-items-center rounded-xl border border-white/20 text-white"
               aria-label={`Call ${phone}`}
             >
               <Icon name="phone" className="h-[18px] w-[18px]" />
             </a>
             <button
               type="button"
-              className="grid h-11 w-11 place-items-center rounded-xl bg-ink-950 text-white"
+              className="grid h-11 w-11 place-items-center rounded-xl bg-white text-ink-950"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
@@ -169,7 +169,7 @@ export function Header({
         </div>
 
         {open && (
-          <div className="drop max-h-[calc(100dvh-64px)] overflow-y-auto border-t border-line bg-white lg:hidden">
+          <div className="drop relative max-h-[calc(100dvh-64px)] overflow-y-auto bg-white text-ink-900 shadow-2xl lg:hidden">
             <nav className="container-x flex flex-col gap-1 py-4" aria-label="Mobile">
               {nav.map((item) => (
                 <Link

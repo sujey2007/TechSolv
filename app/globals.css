@@ -382,6 +382,153 @@ body {
   }
 }
 
+/* ---------- Icon cube (service icons on every face) ---------- */
+.icube {
+  --s: 120px;
+  position: relative;
+  width: var(--s);
+  height: var(--s);
+  transform-style: preserve-3d;
+  animation: icube-spin 18s linear infinite;
+}
+.icube > span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: linear-gradient(145deg, var(--color-brand-500), var(--color-brand-700) 60%, var(--color-ink-900));
+  box-shadow: inset 0 0 30px rgba(46, 211, 198, 0.25);
+}
+.icube > span:nth-child(1) { transform: translateZ(calc(var(--s) / 2)); }
+.icube > span:nth-child(2) { transform: rotateY(180deg) translateZ(calc(var(--s) / 2)); }
+.icube > span:nth-child(3) { transform: rotateY(90deg) translateZ(calc(var(--s) / 2)); }
+.icube > span:nth-child(4) { transform: rotateY(-90deg) translateZ(calc(var(--s) / 2)); }
+.icube > span:nth-child(5) { transform: rotateX(90deg) translateZ(calc(var(--s) / 2)); }
+.icube > span:nth-child(6) { transform: rotateX(-90deg) translateZ(calc(var(--s) / 2)); }
+@keyframes icube-spin {
+  0% { transform: rotateX(-18deg) rotateY(0deg); }
+  50% { transform: rotateX(18deg) rotateY(180deg); }
+  100% { transform: rotateX(-18deg) rotateY(360deg); }
+}
+.icube-shadow {
+  width: calc(var(--s, 120px) * 1.1);
+  height: 18px;
+  margin-inline: auto;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(10, 28, 69, 0.28), transparent);
+  animation: shadow-pulse 6s ease-in-out infinite;
+}
+@keyframes shadow-pulse {
+  50% { transform: scale(0.8); opacity: 0.6; }
+}
+
+/* ---------- 3D ring ---------- */
+.ring3d {
+  --s: 90px;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  border: 6px solid rgba(47, 95, 240, 0.55);
+  border-top-color: var(--color-signal-400);
+  border-left-color: var(--color-brand-300);
+  box-shadow: 0 0 24px rgba(47, 95, 240, 0.25);
+  animation: ring-spin 12s linear infinite;
+  opacity: 0.85;
+}
+@keyframes ring-spin {
+  from { transform: perspective(500px) rotateX(65deg) rotateZ(0deg); }
+  to { transform: perspective(500px) rotateX(65deg) rotateZ(360deg); }
+}
+
+/* ---------- 3D pyramid ---------- */
+.pyramid {
+  --s: 60px;
+  position: relative;
+  width: var(--s);
+  height: var(--s);
+  transform-style: preserve-3d;
+  animation: pyr-spin 14s linear infinite;
+}
+.pyramid > span {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  transform-origin: 50% 100%;
+}
+.pyramid > span:nth-child(1) { background: linear-gradient(var(--color-signal-400), var(--color-brand-500)); transform: translateZ(calc(var(--s) / 2)) rotateX(30deg); }
+.pyramid > span:nth-child(2) { background: linear-gradient(var(--color-brand-300), var(--color-brand-600)); transform: rotateY(90deg) translateZ(calc(var(--s) / 2)) rotateX(30deg); }
+.pyramid > span:nth-child(3) { background: linear-gradient(var(--color-signal-400), var(--color-brand-700)); transform: rotateY(180deg) translateZ(calc(var(--s) / 2)) rotateX(30deg); }
+.pyramid > span:nth-child(4) { background: linear-gradient(var(--color-brand-200), var(--color-brand-500)); transform: rotateY(270deg) translateZ(calc(var(--s) / 2)) rotateX(30deg); }
+@keyframes pyr-spin {
+  from { transform: rotateX(-15deg) rotateY(0deg); }
+  to { transform: rotateX(-15deg) rotateY(360deg); }
+}
+
+/* ---------- Perspective floor grid ---------- */
+.floor3d {
+  position: absolute;
+  inset-inline: -50%;
+  bottom: -2px;
+  height: 55%;
+  background-image:
+    linear-gradient(to right, rgba(46, 211, 198, 0.28) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(46, 211, 198, 0.28) 1px, transparent 1px);
+  background-size: 60px 60px;
+  transform: perspective(500px) rotateX(62deg);
+  transform-origin: 50% 100%;
+  mask-image: linear-gradient(to top, #000 10%, transparent 85%);
+  animation: floor-move 4s linear infinite;
+  pointer-events: none;
+}
+@keyframes floor-move {
+  to { background-position: 0 60px; }
+}
+
+/* ---------- 3D keycap badge ---------- */
+.keycap {
+  box-shadow:
+    0 1px 0 #fff inset,
+    0 6px 0 var(--color-brand-200),
+    0 14px 24px -10px rgba(31, 74, 214, 0.55);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.keycap:hover {
+  transform: translateY(4px);
+  box-shadow:
+    0 1px 0 #fff inset,
+    0 2px 0 var(--color-brand-200),
+    0 8px 16px -10px rgba(31, 74, 214, 0.55);
+}
+
+/* ---------- Depth layers behind images ---------- */
+.deck {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  pointer-events: none;
+}
+.deck-1 {
+  transform: translateZ(-40px) translate(18px, 18px);
+  background: linear-gradient(135deg, var(--color-brand-200), var(--color-brand-100));
+  opacity: 0.9;
+}
+.deck-2 {
+  transform: translateZ(-80px) translate(36px, 36px);
+  background: linear-gradient(135deg, var(--color-signal-400), var(--color-brand-300));
+  opacity: 0.35;
+}
+
+/* ---------- Navbar accent line ---------- */
+.nav-glow {
+  background: linear-gradient(90deg, transparent, var(--color-signal-400), var(--color-brand-300), var(--color-signal-400), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 5s linear infinite;
+  opacity: 0.8;
+}
+
 /* ---------- FAQ ---------- */
 .faq summary {
   list-style: none;
@@ -426,6 +573,12 @@ body {
   .orbit-ring,
   .orbit-face,
   .cube,
+  .icube,
+  .ring3d,
+  .pyramid,
+  .floor3d,
+  .icube-shadow,
+  .nav-glow,
   .rot-word {
     animation: none !important;
   }

@@ -34,7 +34,8 @@ export default async function ServicesPage() {
           >
             <div data-reveal={i % 2 ? "right" : "left"} className="relative">
               <Tilt max={5}>
-                <div className="group overflow-hidden rounded-3xl border border-line shadow-[0_30px_60px_-40px_rgba(10,28,69,0.6)]">
+                <div className="deck deck-1 hidden !rounded-3xl sm:block" />
+                <div className="group relative overflow-hidden rounded-3xl border border-line shadow-[0_30px_60px_-40px_rgba(10,28,69,0.6)]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={s.image} alt={s.title} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105" />
                 </div>

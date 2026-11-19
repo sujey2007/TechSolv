@@ -118,6 +118,43 @@ export function Cube({ size = 56, className = "" }: { size?: number; className?:
   );
 }
 
+const CUBE_ICONS: IconKey[] = ["camera", "network", "fingerprint", "phone", "alarm", "wrench"];
+
+/** A rotating cube with a service icon on every face, plus a soft floor shadow. */
+export function IconCube({ size = 120, className = "" }: { size?: number; className?: string }) {
+  return (
+    <div className={className} aria-hidden="true" style={{ ["--s" as string]: `${size}px` }}>
+      <div className="[perspective:900px]">
+        <div className="icube mx-auto">
+          {CUBE_ICONS.map((ic) => (
+            <span key={ic}>
+              <Icon name={ic} className="h-[42%] w-[42%]" strokeWidth={1.6} />
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="icube-shadow mt-8" />
+    </div>
+  );
+}
+
+export function Ring3D({ size = 90, className = "" }: { size?: number; className?: string }) {
+  return <div aria-hidden="true" className={`ring3d ${className}`} style={{ ["--s" as string]: `${size}px` }} />;
+}
+
+export function Pyramid({ size = 60, className = "" }: { size?: number; className?: string }) {
+  return (
+    <div aria-hidden="true" className={`[perspective:600px] ${className}`}>
+      <div className="pyramid" style={{ ["--s" as string]: `${size}px` }}>
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
+    </div>
+  );
+}
+
 export function Marquee({ items }: { items: { label: string; icon: IconKey }[] }) {
   const row = [...items, ...items];
   return (
@@ -155,8 +192,10 @@ export function PageHero({
       <div className="grid-bg absolute inset-0 [mask-image:radial-gradient(ellipse_at_top_right,black,transparent_70%)]" />
       <div className="blob pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-brand-200/50 blur-[90px]" />
       <div className="blob pointer-events-none absolute -bottom-32 left-[-8%] h-72 w-72 rounded-full bg-signal-400/20 blur-[90px] [animation-delay:-6s]" />
-      <Cube size={46} className="float absolute right-[8%] top-16 hidden lg:block" />
-      <Cube size={30} className="float-slow absolute bottom-14 right-[22%] hidden lg:block" />
+      <IconCube size={110} className="float absolute right-[9%] top-1/2 hidden -translate-y-1/2 lg:block" />
+      <Ring3D size={70} className="absolute right-[26%] top-10 hidden xl:block" />
+      <Pyramid size={40} className="float-slow absolute bottom-10 right-[24%] hidden xl:block" />
+      <Cube size={30} className="float absolute right-[3%] top-12 hidden xl:block" />
       <div className="container-x relative py-14 md:py-20">
         <nav aria-label="Breadcrumb" className="rise mb-6 flex flex-wrap items-center gap-2 text-sm text-ink-500">
           {crumbs.map((c, i) => (
@@ -193,7 +232,9 @@ export function CtaBand({ phone }: { phone: string }) {
       >
         <div className="grid-bg absolute inset-0 opacity-30 [mask-image:linear-gradient(to_left,black,transparent)]" />
         <div className="blob pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-signal-400/30 blur-3xl" />
-        <Cube size={44} className="float absolute right-10 top-8 hidden opacity-70 xl:block" />
+        <div className="floor3d opacity-60" />
+        <Ring3D size={84} className="absolute -left-6 -top-6 hidden opacity-60 md:block" />
+        <Pyramid size={38} className="float absolute right-[38%] top-6 hidden opacity-80 xl:block" />
         <div className="relative flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
           <div className="max-w-xl">
             <h2 className="text-balance font-display text-[1.75rem] font-bold leading-tight sm:text-3xl md:text-4xl">

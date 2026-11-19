@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Icon, type IconKey } from "@/components/Icon";
 import { RotatingWords, Tilt } from "@/components/site/Motion";
-import { CtaBand, Cube, Marquee, SectionHeading, ServiceCard, ServiceOrbit } from "@/components/site/Sections";
+import { CtaBand, Cube, IconCube, Marquee, Pyramid, Ring3D, SectionHeading, ServiceCard, ServiceOrbit } from "@/components/site/Sections";
 import { getIndustries, getServices, getSettings, getTestimonials } from "@/lib/data";
 import { shortTitle, telHref } from "@/lib/format";
 
@@ -84,6 +84,8 @@ export default async function HomePage() {
         <Cube size={44} className="float absolute left-[3%] top-24 hidden 2xl:block" />
         <Cube size={28} className="float-slow absolute bottom-24 left-[6%] hidden 2xl:block" />
         <Cube size={36} className="float absolute right-[3%] top-40 hidden 2xl:block" />
+        <Ring3D size={80} className="absolute bottom-16 right-[4%] hidden 2xl:block" />
+        <Pyramid size={42} className="float-slow absolute left-[46%] top-10 hidden xl:block" />
 
         <div className="container-x relative grid items-center gap-12 pb-16 pt-10 sm:pt-14 lg:grid-cols-[1.08fr_1fr] lg:gap-16 lg:pb-24 lg:pt-20">
           <div>
@@ -144,6 +146,8 @@ export default async function HomePage() {
           <div className="rise relative mx-auto w-full max-w-[600px] [animation-delay:150ms]">
             <div className="spin-slow pointer-events-none absolute -inset-6 rounded-full border-2 border-dashed border-brand-200/70 sm:-inset-10" />
             <Tilt max={6} className="relative">
+              <div className="deck deck-2 hidden sm:block" />
+              <div className="deck deck-1 hidden sm:block" />
               <div className="relative overflow-hidden rounded-[28px] border-4 border-white shadow-[0_50px_100px_-40px_rgba(10,28,69,0.6)]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -201,7 +205,9 @@ export default async function HomePage() {
       </section>
 
       {/* ================= SERVICES ================= */}
-      <section className="container-x py-20 sm:py-24">
+      <section className="container-x relative py-20 sm:py-24">
+        <Ring3D size={70} className="absolute -left-2 top-28 hidden opacity-70 2xl:block" />
+        <Cube size={34} className="float absolute right-2 top-24 hidden 2xl:block" />
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading
             eyebrow="What we do"
@@ -258,7 +264,9 @@ export default async function HomePage() {
       </section>
 
       {/* ================= WHY US ================= */}
-      <section className="py-20 sm:py-24">
+      <section className="relative overflow-hidden py-20 sm:py-24">
+        <Pyramid size={46} className="float absolute right-[4%] top-16 hidden xl:block" />
+        <Cube size={28} className="float-slow absolute bottom-16 left-[3%] hidden xl:block" />
         <div className="container-x grid items-center gap-14 lg:grid-cols-2">
           <div data-reveal="left" className="relative">
             <div className="grid grid-cols-5 gap-3 sm:gap-4">
@@ -363,10 +371,10 @@ export default async function HomePage() {
         <div className="container-x">
           <SectionHeading align="center" eyebrow="How we work" title="From your first call to years of support" />
           <ol className="relative mt-14 grid gap-10 sm:grid-cols-2 md:mt-16 lg:grid-cols-4 lg:gap-6">
-            <div className="absolute left-[12%] right-[12%] top-7 hidden h-px bg-gradient-to-r from-brand-200 via-brand-500 to-signal-400 lg:block" />
+            <div className="absolute left-[12%] right-[12%] top-8 hidden h-px bg-gradient-to-r from-brand-200 via-brand-500 to-signal-400 lg:block" />
             {steps.map((s, i) => (
               <li key={s.title} data-reveal style={{ ["--d" as string]: `${i * 110}ms` }} className="relative text-center">
-                <span className="relative mx-auto grid h-14 w-14 place-items-center rounded-2xl border border-brand-100 bg-white text-brand-600 shadow-[0_10px_24px_-12px_rgba(31,74,214,0.5)] transition duration-300 hover:-translate-y-1 hover:rotate-6">
+                <span className="keycap relative mx-auto grid h-16 w-16 place-items-center rounded-2xl border border-brand-100 bg-white text-brand-600">
                   <Icon name={s.icon} className="h-6 w-6" />
                   <span className="absolute -right-2 -top-2 grid h-6 w-6 place-items-center rounded-full bg-ink-950 font-display text-[11px] font-bold text-white">
                     {i + 1}
@@ -381,10 +389,12 @@ export default async function HomePage() {
       </section>
 
       {/* ================= INDUSTRIES (admin-managed) ================= */}
-      <section className="relative overflow-hidden bg-ink-950 py-20 text-white sm:py-24">
+      <section className="relative overflow-hidden bg-ink-950 pb-28 pt-20 text-white sm:pb-32 sm:pt-24">
         <div className="grid-bg absolute inset-0 opacity-20 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
         <div className="blob pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-brand-600/30 blur-[110px]" />
         <div className="blob pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-signal-500/15 blur-[110px] [animation-delay:-9s]" />
+        <div className="floor3d" />
+        <IconCube size={76} className="float absolute right-[1.5%] top-1/2 hidden -translate-y-1/2 opacity-90 min-[1700px]:block" />
         <div className="container-x relative">
           <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-end">
             <SectionHeading light eyebrow="Who we serve" title={settings.industriesTitle} />
@@ -449,6 +459,7 @@ export default async function HomePage() {
           >
             <Icon name="phone" className="h-4 w-4" /> {settings.primaryPhone}
           </a>
+          <IconCube size={130} className="mt-16 hidden w-fit pl-10 lg:block" />
         </div>
         <div className="space-y-3">
           {faqs.map((f, i) => (
